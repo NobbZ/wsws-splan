@@ -1,22 +1,11 @@
 package server
 
-import "net/http"
-import "strings"
-import "log"
+import (
+	"net/http"
 
-const dayPath = `/day/`
+	"github.com/julienschmidt/httprouter"
+)
 
-func dayHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "OPTIONS":
-		dayOptionsHandler(w, r)
-	default:
-		w.WriteHeader(http.StatusMethodNotAllowed)
-	}
-}
-
-func dayOptionsHandler(w http.ResponseWriter, r *http.Request) {
-	resID := strings.TrimPrefix(r.URL.Path, dayPath)
-
-	log.Fatal("resID:", resID)
+func dayGetHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	w.WriteHeader(http.StatusOK)
 }

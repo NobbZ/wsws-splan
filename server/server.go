@@ -1,8 +1,16 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+)
 
 func Start(addr string) {
-	http.HandleFunc(dayPath, dayHandler)
-	http.ListenAndServe(addr, nil)
+	router := httprouter.New()
+	router.HandleOPTIONS = true
+	router.GET("/day/:name", dayGetHandler)
+
+	// http.HandleFunc(dayPath, dayHandler)
+	http.ListenAndServe(addr, router)
 }
