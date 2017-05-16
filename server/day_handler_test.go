@@ -1,6 +1,7 @@
 package server
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 	"testing"
@@ -9,9 +10,11 @@ import (
 func TestDayOptions(t *testing.T) {
 	go Start("localhost:9191")
 
-	req, _ := http.NewRequest("OPTIONS", "http://localhost:9191/day/2", nil)
+	req, _ := http.NewRequest("GET", "http://localhost:9191/day", nil)
 	c := new(http.Client)
-	rep, err := c.Do(req)
+	rep, _ := c.Do(req)
 
-	log.Fatalln(rep, err)
+	body, err := ioutil.ReadAll(rep.Body)
+
+	log.Fatalln(string(body), err)
 }

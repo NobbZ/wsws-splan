@@ -7,12 +7,11 @@ import (
 	"os"
 )
 
-var splan SPlan
-
 var splanXML = new(Chisplan)
 
-func init() {
+var PathToXML = "/home/nmelzer/gopath/src/github.com/NobbZ/wsws-splan"
 
+func init() {
 	f, err := os.Open(filename)
 	if err != nil {
 		log.Fatalf("An error occured while opening %v:\n%v", filename, err)

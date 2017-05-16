@@ -34,7 +34,7 @@ var uniqueFlags = []*bool{
 	&toXml,
 	&countAll}
 
-var filename = "./plan.xml"
+var filename = "/home/nmelzer/gopath/src/github.com/NobbZ/wsws-splan/plan.xml"
 
 var out int = -1
 
