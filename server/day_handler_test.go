@@ -21,25 +21,28 @@ func TestDayOptions(t *testing.T) {
 		methods []string
 	}{
 		{"http://localhost:9191/day", []string{"GET", "OPTIONS"}},
+		{"http://localhost:9191/day/1", []string{"GET", "OPTIONS"}},
 	}
 
 	for _, testCase := range testCases {
-		req, _ := http.NewRequest("OPTIONS", testCase.url, nil)
-		c := new(http.Client)
-		resp, err := c.Do(req)
+		t.Run(testCase.url, func(t *testing.T) {
+			req, _ := http.NewRequest("OPTIONS", testCase.url, nil)
+			c := new(http.Client)
+			resp, err := c.Do(req)
 
-		if err != nil {
-			t.Errorf("There was an error while doing OPTIONS for %s:\n%v", testCase.url, err)
-		}
+			if err != nil {
+				t.Errorf("There was an error while doing OPTIONS for %s:\n%v", testCase.url, err)
+			}
 
-		parsedMethods := strings.Split(resp.Header["Allow"][0], ",")
-		for i := range parsedMethods {
-			parsedMethods[i] = strings.Fields(parsedMethods[i])[0]
-		}
+			parsedMethods := strings.Split(resp.Header["Allow"][0], ",")
+			for i := range parsedMethods {
+				parsedMethods[i] = strings.Fields(parsedMethods[i])[0]
+			}
 
-		if act, exp, eq := checkOptions(parsedMethods, testCase.methods); !eq {
-			t.Errorf("Expected %s to allow %v, but it allowed %v.", testCase.url, exp, act)
-		}
+			if act, exp, eq := checkOptions(parsedMethods, testCase.methods); !eq {
+				t.Errorf("Expected %s to allow %v, but it allowed %v.", testCase.url, exp, act)
+			}
+		})
 	}
 }
 
