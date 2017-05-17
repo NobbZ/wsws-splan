@@ -3,5 +3,5 @@ package main
 import "github.com/NobbZ/wsws-splan/server"
 
 func main() {
-	server.Start(":8080")
+	server.Start(":8080", nil)
 }

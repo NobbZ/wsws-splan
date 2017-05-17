@@ -4,11 +4,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sync"
 	"testing"
 )
 
 func TestDayOptions(t *testing.T) {
-	go Start("localhost:9191")
+	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	go Start("localhost:9191", wg)
+	wg.Wait()
 
 	req, _ := http.NewRequest("GET", "http://localhost:9191/day", nil)
 	c := new(http.Client)
