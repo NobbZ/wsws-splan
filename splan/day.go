@@ -8,13 +8,13 @@ import (
 
 type Days struct {
 	XMLName interface{} `json:",omitempty" xml:"days"`
-	Days    []Day       `json:"days" xml:"day"`
+	Days    []Day       `json:"days"       xml:"day"`
 }
 
 type Day struct {
-	URI       string `json:"uri",xml:"uri"`
-	LongName  string `json:"long_name",xml:"long_name"`
-	ShortName string `json:"short_name",xml:"short_name"`
+	URI       string `json:"uri"        xml:"uri"`
+	LongName  string `json:"long_name"  xml:"long_name"`
+	ShortName string `json:"short_name" xml:"short_name"`
 }
 
 func GetAllDays() Days {
