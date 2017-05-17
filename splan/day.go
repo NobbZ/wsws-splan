@@ -21,12 +21,18 @@ func GetAllDays(depth int) Days {
 	ds := Days{
 		Days: make([]Day, len(splanXML.Chitage.Chitag)),
 	}
+
 	for i, d := range splanXML.Chitage.Chitag {
+		uri := settings.BaseURI() + "day/" + strconv.Itoa(int(d.Chiid[0].Text))
+		short := d.Chibezeichnung.Chikurz.Text
+		long := d.Chibezeichnung.Chilang.Text
+
 		day := Day{
-			URI:       settings.BaseURI() + "day/" + strconv.Itoa(int(d.Chiid[0].Text)),
-			ShortName: d.Chibezeichnung.Chikurz.Text,
-			LongName:  d.Chibezeichnung.Chilang.Text,
+			URI:       uri,
+			ShortName: short,
+			LongName:  long,
 		}
+
 		ds.Days[i] = day
 	}
 
