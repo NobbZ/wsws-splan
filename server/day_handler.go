@@ -11,7 +11,7 @@ import (
 )
 
 func daysGetHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	days := splan.GetAllDays()
+	days := splan.GetAllDays(0)
 	log.Println("In daysGetHandler")
 	enc := GetEncoderFromRequest(r, w)
 
