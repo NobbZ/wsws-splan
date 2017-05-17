@@ -12,6 +12,7 @@ func TestDayOptions(t *testing.T) {
 
 	req, _ := http.NewRequest("GET", "http://localhost:9191/day", nil)
 	c := new(http.Client)
+	req.Header["Accept"] = []string{"application/xml"}
 	rep, _ := c.Do(req)
 
 	body, err := ioutil.ReadAll(rep.Body)
