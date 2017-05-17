@@ -17,7 +17,7 @@ type Day struct {
 	ShortName string `json:"short_name" xml:"short_name"`
 }
 
-func GetAllDays() Days {
+func GetAllDays(depth int) Days {
 	ds := Days{
 		Days: make([]Day, len(splanXML.Chitage.Chitag)),
 	}
