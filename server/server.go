@@ -17,6 +17,9 @@ func Start(addr string, wg *sync.WaitGroup) {
 	router.GET("/day", daysGetHandler)
 	router.GET("/day/:name", dayGetHandler)
 
+	router.GET("/coffee", coffeeGetHandler)
+	router.PUT("/coffee", coffeePutHandler)
+
 	if wg != nil {
 		wg.Done()
 	}

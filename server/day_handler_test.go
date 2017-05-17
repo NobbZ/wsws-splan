@@ -22,6 +22,7 @@ func TestDayOptions(t *testing.T) {
 	}{
 		{"http://localhost:9191/day", []string{"GET", "OPTIONS"}},
 		{"http://localhost:9191/day/1", []string{"GET", "OPTIONS"}},
+		{"http://localhost:9191/coffee", []string{"GET", "PUT", "OPTIONS"}},
 	}
 
 	for _, testCase := range testCases {
