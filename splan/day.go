@@ -7,13 +7,14 @@ import (
 )
 
 type Days struct {
-	Days []Day `json:"days"`
+	XMLName interface{} `json:",omitempty" xml:"days"`
+	Days    []Day       `json:"days" xml:"day"`
 }
 
 type Day struct {
-	URI       string
-	LongName  string
-	ShortName string
+	URI       string `json:"uri",xml:"uri"`
+	LongName  string `json:"long_name",xml:"long_name"`
+	ShortName string `json:"short_name",xml:"short_name"`
 }
 
 func GetAllDays() Days {
