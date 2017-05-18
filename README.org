@@ -1,0 +1,27 @@
+#+BEGIN_SRC json
+  {
+    "days": [
+      {
+        "uri": "http://localhost:8080/day/1",
+        "long_name": "Montag",
+        "short_name": "Mo"
+      }, {
+        "uri": "http://localhost:8080/day/2",
+        "long_name": "Dienstag",
+        "short_name":"Di"
+      },{
+        "uri":"http://localhost:8080/day/3",
+        "long_name":"Mittwoch",
+        "short_name":"Mi"
+      },{
+        "uri":"http://localhost:8080/day/4",
+        "long_name":"Donnerstag",
+        "short_name":"Do"
+      },{
+        "uri":"http://localhost:8080/day/5",
+        "long_name":"Freitag",
+        "short_name":"Fr"
+      }
+    ]
+  }
+#+END_SRC
