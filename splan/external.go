@@ -5,16 +5,11 @@ package splan
 /////////////////////////////////////////////////////////////////
 
 import (
-	"bufio"
-	"compress/bzip2"
-	"compress/gzip"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"io"
 	"log"
 	"os"
-	"strings"
 )
 
 const (
@@ -47,7 +42,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 		if !oneLevelDown {
 			if se.Name.Local == "splan" && se.Name.Space == "" {
 				var item Chisplan
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -58,7 +53,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 		} else {
 			if se.Name.Local == "mitarbeiter" && se.Name.Space == "" {
 				var item Chimitarbeiter
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -69,7 +64,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 
 			if se.Name.Local == "fachrichtungen" && se.Name.Space == "" {
 				var item Chifachrichtungen
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -124,7 +119,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 
 			if se.Name.Local == "zeiten" && se.Name.Space == "" {
 				var item Chizeiten
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -135,7 +130,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 
 			if se.Name.Local == "fbmatrix" && se.Name.Space == "" {
 				var item Chifbmatrix
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -146,7 +141,7 @@ func handleFeed(se xml.StartElement, decoder *xml.Decoder, outFlag *bool) {
 
 			if se.Name.Local == "hilfsmittel" && se.Name.Space == "" {
 				var item Chihilfsmittel
-				decoder.DecodeElement(&item, &se)
+				_ = decoder.DecodeElement(&item, &se)
 				switch outFlag {
 				case &toJson:
 					writeJson(item)
@@ -192,41 +187,7 @@ func writeXml(item interface{}) {
 	if err != nil {
 		fmt.Printf("error: %v\n", err)
 	}
-	os.Stdout.Write(output)
-}
-
-func genericReader(filename string) (io.Reader, *os.File, error) {
-	if filename == "" {
-		return bufio.NewReader(os.Stdin), nil, nil
-	}
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, nil, err
-	}
-	if strings.HasSuffix(filename, "bz2") {
-		return bufio.NewReader(bzip2.NewReader(bufio.NewReader(file))), file, err
-	}
-
-	if strings.HasSuffix(filename, "gz") {
-		reader, err := gzip.NewReader(bufio.NewReader(file))
-		if err != nil {
-			return nil, nil, err
-		}
-		return bufio.NewReader(reader), file, err
-	}
-	return bufio.NewReader(file), file, err
-}
-
-func numberOfBoolsSet(a []*bool) (int, *bool) {
-	var setBool *bool
-	counter := 0
-	for i := 0; i < len(a); i++ {
-		if *a[i] {
-			counter += 1
-			setBool = a[i]
-		}
-	}
-	return counter, setBool
+	_, _ = os.Stdout.Write(output)
 }
 
 ///////////////////////////
