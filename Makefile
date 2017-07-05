@@ -15,5 +15,10 @@ wswserv: $(GOFILES)
 
 test: ${PACKAGES:%=%_test}
 
+lint: ${PACKAGES:%=%_lint}
+
 %_test:
 	@${GO} test ./$*
+
+%_lint:
+	@gometalinter ./$* -D gocyclo
